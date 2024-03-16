@@ -7,6 +7,7 @@ export default {
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Link } from '@inertiajs/vue3';
+import { Inertia } from "@inertiajs/inertia";
 defineProps({
     categories: {
         type: Object,
@@ -31,7 +32,8 @@ const deleteCategory = id => {
                     <div class="flex justify-between" v-if="$page.props.user.permissions.includes('create category')">
                         <Link :href="route('categories.create')"
                             class="rounded-md bg-white/10 px-3.5 py-2.5 text-md font-semibold text-white shadow-sm hover:bg-white/20">
-                        Create Category</Link>
+                        Create Category
+                        </Link>
                     </div>
                     <div class="mt-4">
                         <ul role="list" class="divide-y divide-indigo-700">
@@ -45,18 +47,30 @@ const deleteCategory = id => {
                                     <span class="inline-flex rounded-md shadow-sm isolate">
                                         <Link :href="route('categories.edit', category.id)"
                                             v-if="$page.props.user.permissions.includes('update category')"
-                                            class="relative inline-flex items-center px-3 py-2 text-sm font-semibold text-white bg-white/10 rounded-l-md ring-1 ring-inset ring-gray-300 hover:bg-white/20 focus:z-10">
+                                            class="relative inline-flex items-center px-3 py-2 text-sm font-semibold text-gray-900 bg-white rounded-l-md ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10">
                                         Edit
                                         </Link>
                                         <Link @click="deleteCategory(category.id)"
                                             v-if="$page.props.user.permissions.includes('delete category')"
-                                            class="relative inline-flex items-center px-3 py-2 -ml-px text-sm font-semibold text-gray-900 bg-white rounded-r-md ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10">
+                                            class="relative inline-flex items-center px-3 py-2 -ml-px text-sm font-semibold text-white bg-white/10 rounded-r-md ring-1 ring-inset ring-gray-300 hover:bg-white/20 focus:z-10">
                                         Delete
                                         </Link>
                                     </span>
                                 </div>
                             </li>
                         </ul>
+                    </div>
+                    <div class="flex justify-between mt-2">
+                        <Link v-if="categories.current_page > 1" :href="categories.prev_page_url"
+                            class="rounded-md bg-white/10 px-3.5 py-2.5 text-md font-semibold text-white shadow-sm hover:bg-white/20">
+                        Previous
+                        </Link>
+                        <div v-else></div>
+                        <Link v-if="categories.current_page < categories.last_page" :href="categories.next_page_url"
+                            class="rounded-md bg-white/10 px-3.5 py-2.5 text-md font-semibold text-white shadow-sm hover:bg-white/20">
+                        Next
+                        </Link>
+                        <div v-else></div>
                     </div>
                 </div>
             </div>
