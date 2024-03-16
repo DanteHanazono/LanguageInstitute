@@ -1,29 +1,32 @@
 <script>
-export default {
-    name: 'CategoriesForm'
-}
-</script>
-
-<script setup>
 import FormSection from '@/Components/FormSection.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 
-defineProps({
-    form: {
-        type: Object,
-        required: true
+export default {
+    name: 'CategoriesForm',
+    components: {
+        FormSection,
+        PrimaryButton,
+        InputError,
+        InputLabel,
+        TextInput,
     },
-    updating: {
-        type: Boolean,
-        required: false,
-        default: false
-    }
-})
-
-defineEmits(['submit'])
+    props: {
+        form: {
+            type: Object,
+            required: true,
+        },
+        updating: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+    },
+    emits: ['submit'],
+};
 </script>
 <template>
     <FormSection @submitted="$emit('submit')">
