@@ -26,13 +26,16 @@ class CategoryController extends Controller
     {
         //
     }
-    public function edit(string $id)
+    public function edit(Category $category)
     {
-        //
+        return  inertia('Categories/Edit', [
+            'category' => $category,
+        ]);
     }
-    public function update(CategoryRequest $request, string $id)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        $category->update($request->validated());
+        return redirect()->route('categories.index');
     }
     public function destroy(string $id)
     {
