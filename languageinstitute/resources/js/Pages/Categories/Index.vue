@@ -44,7 +44,7 @@ const deleteCategory = id => {
                                 <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
                                     <span class="inline-flex rounded-md shadow-sm isolate">
                                         <Link :href="route('categories.edit', category.id)"
-                                            class="relative inline-flex items-center px-3 py-2 text-sm font-semibold text-gray-900 bg-white rounded-l-md ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10">
+                                            class="relative inline-flex items-center px-3 py-2 text-sm font-semibold text-white bg-white/10 rounded-l-md ring-1 ring-inset ring-gray-300 hover:bg-white/20 focus:z-10">
                                         Edit
                                         </Link>
                                         <Link @click="deleteCategory(category.id)"
