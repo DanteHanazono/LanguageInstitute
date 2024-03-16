@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class CategoryRequest extends FormRequest
@@ -11,7 +12,7 @@ class CategoryRequest extends FormRequest
     {
         return true;
     }
-    public function rules(): array
+    public function rules(Request  $request): array
     {
         return [
             'name' =>  [
@@ -19,7 +20,7 @@ class CategoryRequest extends FormRequest
                 'string',
                 'max:100',
                 Rule::unique(table: 'categories', column: 'name')
-                    ->ignore(id: request('category'), idColumn: 'id')
+                    ->ignore(id: $request->input('category'), idColumn: 'id')
             ],
         ];
     }
