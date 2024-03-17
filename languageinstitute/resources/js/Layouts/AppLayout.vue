@@ -1,4 +1,6 @@
 <script setup>
+import { useDark, useToggle } from '@vueuse/core';
+import { Switch } from '@headlessui/vue';
 import { ref } from 'vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import ApplicationMark from '@/Components/ApplicationMark.vue';
@@ -25,6 +27,9 @@ const switchToTeam = (team) => {
 const logout = () => {
     router.post(route('logout'));
 };
+const isDark = useDark();
+const toggleDark = useToggle(isDark);
+const enabled = ref(false)
 </script>
 
 <template>
@@ -72,8 +77,7 @@ const logout = () => {
                                 </NavLink>
                             </div>
                         </div>
-
-                        <div class="hidden sm:flex sm:items-center sm:ms-6">
+                        <div class="hidden sm:flex sm:items-center sm:ms-auto">
                             <div class="ms-3 relative">
                                 <!-- Teams Dropdown -->
                                 <Dropdown v-if="$page.props.jetstream.hasTeamFeatures" align="right" width="60">
@@ -197,7 +201,16 @@ const logout = () => {
                                 </Dropdown>
                             </div>
                         </div>
-
+                        <div class="hidden sm:flex sm:items-center sm:ms-4">
+                            <div class="ms-2 relative">
+                                <Switch @click="toggleDark()" v-model="enabled"
+                                    :class="[enabled ? 'bg-indigo-600' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2']">
+                                    <span class="sr-only">Use setting</span>
+                                    <span aria-hidden="true"
+                                        :class="[enabled ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out']" />
+                                </Switch>
+                            </div>
+                        </div>
                         <!-- Hamburger -->
                         <div class="-me-2 flex items-center sm:hidden">
                             <button
