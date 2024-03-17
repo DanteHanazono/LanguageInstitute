@@ -8,6 +8,17 @@ export default {
 import AppLayout from '@/Layouts/AppLayout.vue';
 import LessonForm from '@/Components/Lessons/Form.vue';
 import { useForm } from '@inertiajs/vue3';
+
+defineProps({
+    categories: {
+        type: Object,
+        required: true
+    },
+    levels: {
+        type: Object,
+        required: true
+    }
+})
 const form = useForm({
     name: ''
 })
@@ -22,7 +33,8 @@ const form = useForm({
         <div class="py-12">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="p-6 bg-white rounded-md shadow dark:bg-gray-800">
-                    <LessonForm :form="form" @submit="form.post(route('lessons.store'))" />
+                    <LessonForm :form="form" :categories="categories" :levels="levels"
+                        @submit="form.post(route('lessons.store'))" />
                 </div>
             </div>
         </div>

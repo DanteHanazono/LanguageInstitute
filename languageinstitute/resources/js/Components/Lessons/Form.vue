@@ -5,6 +5,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
+import CollectionSelector from '@/Components/Common/CollectionSelector.vue';
 
 export default {
     name: 'LessonsForm',
@@ -26,6 +27,14 @@ export default {
             required: false,
             default: false,
         },
+        categories: {
+            type: Object,
+            required: true
+        },
+        levels: {
+            type: Object,
+            required: true
+        }
     },
     emits: ['submit'],
 };
@@ -45,7 +54,7 @@ export default {
                 <InputError :message="$page.props.errors.name" class="mt-2" />
 
                 <InputLabel class="mt-2" for="description" value="Description" />
-                <TextInput id="description" v-model="form.name" type="text" autocomplete="description"
+                <TextInput id="description" v-model="form.description" type="text" autocomplete="description"
                     class="block w-full mt-1" />
                 <InputError :message="$page.props.errors.description" class="mt-2" />
 
@@ -58,7 +67,16 @@ export default {
                 <SecondaryButton class="mt-2 mr-2" type="button" @click="">Upload PDF </SecondaryButton>
                 <InputError :message="$page.props.errors.pdf_url" class="mt-2" />
 
+                <InputLabel class="mt-2" for="level_id" value="Select Level" />
+                <select
+                    class="mt-1.5 w-small rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 sm:text-sm"
+                    name="level_id" id="level_id">
+                    <option v-for="level in levels" value="level.id">{{ level.name }}</option>
+                </select>
+                <InputError :message="$page.props.errors.level_id" class="mt-2" />
 
+                <InputLabel class="mt-2" for="categories" value="Select Categories" />
+                <CollectionSelector :collection="categories" />
             </div>
         </template>
         <template #actions>
