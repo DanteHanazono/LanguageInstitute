@@ -11,7 +11,7 @@ defineProps({
 const currentSelection = ref(1);
 const selection = ref([]);
 const handleAddToSelection = () => {
-    selection.value.push(currentSelection.value);
+    selection.value.push(currentSelection);
 }
 </script>
 
